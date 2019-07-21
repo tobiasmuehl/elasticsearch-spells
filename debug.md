@@ -69,8 +69,6 @@ PUT INDEX_NAME/_settings
   }
 ```
 
-Get settings for a specific index: `GET INDEX_NAME/_settings`
-
 Set number of replicas to 0 for a given index, to get rid of unassigned shards:
 
 ```
@@ -86,26 +84,25 @@ PUT INDEX_NAME/_settings
 
 Set some defaults for your indices. This is good for preventing unallocated shards, at the very least.
 
-Making a default template for fluentd and APM logs:
+Making a default template for fluentd, APM and logstash logs:
 
 ```
 PUT _template/default
 {
-  "default" : {
-    "order" : 0,
-    "index_patterns" : [
-      "fluentd-*",
-      "apm-*"
-    ],
-    "settings" : {
-      "index" : {
-        "number_of_shards" : "1",
-        "number_of_replicas" : "0"
-      }
-    },
-    "mappings" : { },
-    "aliases" : { }
-  }
+  "order" : 0,
+  "index_patterns" : [
+    "fluentd-*",
+    "apm-*",
+    "logstash-*"
+  ],
+  "settings" : {
+    "index" : {
+      "number_of_shards" : "1",
+      "number_of_replicas" : "0"
+    }
+  },
+  "mappings" : { },
+  "aliases" : { }
 }
 ```
 
